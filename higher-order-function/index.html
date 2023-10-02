@@ -1,0 +1,21 @@
+const singular = ["cat", "dog", "bird", "bull"]
+
+const plural = [];
+
+//add an s to ever item in the singular function
+//add the modified item to the plural array
+for(let i = 0; i < singular.length; i++){
+  let word = singular[i]+"s";
+  plural.push(word);
+}
+
+console.log(plural)
+
+
+const plural = singular.map(myFunction)
+
+function myFunction(noun) {
+  return noun + "s";
+}
+
+console.log(plural);
