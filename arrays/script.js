@@ -1,5 +1,10 @@
 let x;
 
+//Arrays are a special type of 'object' and data structure in Javascript that stores multiple values.
+//Numbered by index, or zero based.
+//Arrays can contain different data types(numbers, strings, booleans...)
+//Arrays are mutable, contents can be altered or changed.
+
 // Array Literal
 const numbers = [12, 45, 33, 29, 39, 102];
 const mixed = [12, 'Hello', true, null];

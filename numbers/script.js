@@ -4,13 +4,13 @@ const num = new Number(5);
 
 // toString() - returns a string representation of the number
 x = num.toString();
-// To get the length
+// To get the length(Numbers cannot return a length, first converst said number to a string...)
 x = num.toString().length;
 
 // toFixed() - returns a string representation of the number with a specified number of decimals
 x = num.toFixed(2);
 
-// toPrecision() - returns a number with the specified length
+// toPrecision() - returns a number with the specified length(Entire number length, not just specified number of decimals...)
 x = num.toPrecision(3);
 
 // toExponential() -  convert a number to exponential notation and return its value as a string
