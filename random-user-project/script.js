@@ -1,6 +1,6 @@
 function fetchUser() {
   showSpinner();
-  fetch('https://randomuser.me/api')
+  fetch('https://randomuser.me/api') // Randomly generates data from api, unique users
     .then((res) => res.json())
     .then((data) => {
       hideSpinner();
@@ -8,6 +8,8 @@ function fetchUser() {
     });
 }
 
+// function using conditionals to change stylings depending on gender of generated user
+// function also uses dynamic data, template literals, do organize key/values from api
 function displayUser(user) {
   const userDisplay = document.querySelector('#user');
 
@@ -38,6 +40,7 @@ function displayUser(user) {
         <span class="font-bold">Location: </span> ${user.location.city} ${user.location.country}
       </p>
       <p class="text-xl"><span class="font-bold">Age: </span> ${user.dob.age}</p>
+      // Using template literals, dynamic data for each generated user
     </div>
   </div>
 </div>
