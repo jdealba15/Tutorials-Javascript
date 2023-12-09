@@ -1,5 +1,6 @@
-const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+const apiUrl = 'https://jsonplaceholder.typicode.com/todos'; // Global variable for the URL
 
+// function for retrieving data from API and iterating with forEach
 const getTodos = () => {
   fetch(apiUrl + '?_limit=10')
     .then((res) => res.json())
@@ -8,6 +9,7 @@ const getTodos = () => {
     });
 };
 
+// function for creating new element with id's and class, appendChild method to grab .title key
 const addTodoToDOM = (todo) => {
   const div = document.createElement('div');
   div.classList.add('todo');
@@ -21,6 +23,7 @@ const addTodoToDOM = (todo) => {
   document.getElementById('todo-list').appendChild(div);
 };
 
+// function take in value from input form, send to API and simultaneously add to form and to DOM
 const createTodo = (e) => {
   e.preventDefault();
 
@@ -29,6 +32,7 @@ const createTodo = (e) => {
     completed: false,
   };
 
+  // request sent to server to add submitted data to API
   fetch(apiUrl, {
     method: 'POST',
     body: JSON.stringify(newTodo),
@@ -79,3 +83,4 @@ const init = () => {
 };
 
 init();
+
