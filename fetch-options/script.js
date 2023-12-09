@@ -1,6 +1,6 @@
 /*
   COMMON FETCH OPTIONS
-  method: HTTP method you want to use
+  method: HTTP method you want to use (In this case, POST)
   body: Data you want to send. Usually to be put in a database, etc
   headers: Any HTTP headers you want to send
 */
@@ -14,7 +14,7 @@ function createPost({ title, body }) {
     }),
     headers: {
       'Content-Type': 'application/json',
-      token: 'abc123',
+      token: 'abc123', // Fake token sent back upon authentication from server, stored in local storage
     },
   })
     .then((res) => res.json())
