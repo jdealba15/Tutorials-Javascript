@@ -6,10 +6,14 @@ const promise = new Promise((resolve, reject) => {
 
 // promise.then((data) => console.log(data));
 
+// adding 'async' to our function makes the function asynchronous
+
 async function getPromise() {
   const response = await promise;
   console.log(response);
 }
+
+// 'await' function waits for promise to be fullfilled, then moves on to assigning it to our varaible(in this case, const)
 
 // getPromise();
 
@@ -32,3 +36,4 @@ const getPosts = async () => {
 };
 
 getPosts().catch((error) => console.log(error));
+
