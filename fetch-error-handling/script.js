@@ -1,3 +1,5 @@
+// 'throw new' allows user to make neater, tailor made responses for errors
+
 // Success
 fetch('http://httpstat.us/200')
   .then((response) => {
@@ -64,3 +66,14 @@ fetch('http://httpstat.us/200')
   .catch((error) => {
     console.log(error);
   });
+// fetch('http://hello123.net')
+//   .then((response) => {
+//     return response;
+//   })
+//   .then(() => {
+//     console.log('success');
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+    
