@@ -1,3 +1,5 @@
+// Second Section
+
 const apiUrl = 'https://jsonplaceholder.typicode.com/todos'; // Global variable for the URL
 
 // function for retrieving data from API and iterating with forEach
