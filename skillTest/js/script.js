@@ -1,4 +1,9 @@
-import movieCard from './movieCard.js';
+import movieCard from '/js/components/MovieCard.js';
+import showCard from '/js/components/ShowCard.js';
+import movieDetails from '/js/components/MovieDetails.js';
+import showInfo from '/js/components/ShowInfo.js';
+import displaySearch from '/js/components/DisplaySearch.js';
+import displaySliderMovies from '/js/components/DisplaySliderMovies.js';
 
 const global = {
     currentPage: window.location.pathname,
@@ -36,29 +41,7 @@ async function displayPopularMovies() {
     results.forEach((show) => {
       const div = document.createElement('div');
       div.classList.add('card');
-      div.innerHTML = `
-            <a href="tv-details.html?id=${show.id}">
-              ${
-                show.poster_path
-                ? `<img
-                src="https://image.tmdb.org/t/p/w500${show.poster_path}"
-                class="card-img-top"
-                alt="${show.name}"
-              />`
-                  : `<img
-              src="../images/no-image.jpg"
-              class="card-img-top"
-              alt="${show.name}"
-            />`
-              }
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">${show.name}</h5>
-              <p class="card-text">
-                <small class="text-muted">Air Date: ${show.first_air_date}</small>
-              </p>
-            </div>
-          `;
+      div.innerHTML = showCard(show.id, show.poster_path, show.name, show.first_air_date, show.genres);
   
       document.querySelector('#popular-shows').appendChild(div);
     });
@@ -73,66 +56,22 @@ async function displayPopularMovies() {
     // Overlay for background image
     displayBackgroundImage('movie', movie.backdrop_path);
   
-    const div = document.createElement('div');
-//** card image movie  
-    div.innerHTML = `
-    <div class="details-top">
-    <div>
-    ${
-      movie.poster_path
-        ? `<img
-      src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
-      class="card-img-top"
-      alt="${movie.title}"
-    />`
-        : `<img
-    src="../images/no-image.jpg"
-    class="card-img-top"
-    alt="${movie.title}"
-  />`
-    }
-    </div>
-    <div>
-      <h2>${movie.title}</h2>
-      <p>
-        <i class="fas fa-star text-primary"></i>
-        ${movie.vote_average.toFixed(1)} / 10
-      </p>
-      <p class="text-muted">Release Date: ${movie.release_date}</p>
-      <p>
-        ${movie.overview}
-      </p>
-      <h5>Genres</h5>
-      <ul class="list-group">
-        ${movie.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
-      </ul>
-      <a href="${
-        movie.homepage
-      }" target="_blank" class="btn">Visit Movie Homepage</a>
-    </div>
-  </div>
-  <div class="details-bottom">
-    <h2>Movie Info</h2>
-    <ul>
-      <li><span class="text-secondary">Budget:</span> $${addCommasToNumber(
-        movie.budget
-      )}</li>
-      <li><span class="text-secondary">Revenue:</span> $${addCommasToNumber(
-        movie.revenue
-      )}</li>
-      <li><span class="text-secondary">Runtime:</span> ${
-        movie.runtime
-      } minutes</li>
-      <li><span class="text-secondary">Status:</span> ${movie.status}</li>
-    </ul>
-    <h4>Production Companies</h4>
-    <div class="list-group">
-      ${movie.production_companies
-        .map((company) => `<span>${company.name}</span>`)
-        .join(', ')}
-    </div>
-  </div>
-    `;
+    const div = document.createElement('div'); 
+    div.innerHTML = movieDetails(
+      movie.poster_path, 
+      movie.title, 
+      movie.vote_average, 
+      movie.release_date, 
+      movie.overview, 
+      movie.genres, 
+      movie.homepage, 
+      movie.budget, 
+      movie.revenue, 
+      movie.runtime, 
+      movie.status, 
+      movie.production_companies
+    );
+                              
   
   document.querySelector('#movie-details').appendChild(div);
   }
@@ -143,59 +82,20 @@ async function displayPopularMovies() {
   
     // Overlay for background image
     displayBackgroundImage('tv', show.backdrop_path);
-  // card image show
     const div = document.createElement('div');
-    div.innerHTML = `
-    <div class="details-top">
-    <div>
-    ${
-      show.poster_path
-        ? `<img
-      src="https://image.tmdb.org/t/p/w500${show.poster_path}"
-      class="card-img-top"
-      alt="${show.name}"
-    />`
-        : `<img
-    src="../images/no-image.jpg"
-    class="card-img-top"
-    alt="${show.name}"
-  />`
-    }
-    </div>
-    <div>
-      <h2>${show.name}</h2>
-      <p>
-        <i class="fas fa-star text-primary"></i>
-        ${show.vote_average.toFixed(1)} / 10
-      </p>
-      <p class="text-muted">Last Air Date: ${show.last_air_date}</p>
-      <p>
-        ${show.overview}
-      </p>
-      <h5>Genres</h5>
-      <ul class="list-group">
-        ${show.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
-      </ul>
-      <a href="${
-        show.homepage
-      }" target="_blank" class="btn">Visit show Homepage</a>
-    </div>
-  </div>
-  <div class="details-bottom">
-    <h2>Show Info</h2>
-    <ul>
-      <li><span class="text-secondary">Number of Episodes:</span> ${show.number_of_episodes}</li>
-      <li><span class="text-secondary">Last Episode to Air:</span> ${show.last_episode_to_air.name}</li>
-      <li><span class="text-secondary">Status:</span> ${show.status}</li>
-    </ul>
-    <h4>Production Companies</h4>
-    <div class="list-group">
-      ${show.production_companies
-        .map((company) => `<span>${company.name}</span>`)
-        .join(', ')}
-    </div>
-  </div>
-    `;
+    div.innerHTML = showInfo(
+      show.poster_path, 
+      show.name, 
+      show.vote_average, 
+      show.last_air_date, 
+      show.overview, 
+      show.genres, 
+      show.homepage, 
+      show.number_of_episodes, 
+      show.last_episode_to_air, 
+      show.status, 
+      show.production_companies
+      );
   
   document.querySelector('#show-details').appendChild(div);
   }
@@ -262,29 +162,7 @@ function displaySearchResults(results) {
   results.forEach((result) => {
     const div = document.createElement('div');
     div.classList.add('card');
-    div.innerHTML = `
-          <a href="${global.search.type}-details.html?id=${result.id}">
-            ${
-              result.poster_path
-                ? `<img
-              src="https://image.tmdb.org/t/p/w500/${result.poster_path}"
-              class="card-img-top"
-              alt="${global.search.type === 'movie' ? result.title : result.name}"
-            />`
-                : `<img
-            src="../images/no-image.jpg"
-            class="card-img-top"
-            alt="${global.search.type === 'movie' ? result.title : result.name}"
-          />`
-            }
-          </a>
-          <div class="card-body">
-            <h5 class="card-title">${global.search.type === 'movie' ? result.title : result.name}</h5>
-            <p class="card-text">
-              <small class="text-muted">Release: ${global.search.type === 'movie' ? result.release_date : result.first_air_date}</small>
-            </p>
-          </div>
-        `;
+    div.innerHTML = displaySearch(global.search.type, result.id, result.poster_path, global.search.type, result.title, result.name, result.release_date, result.first_air_date);
 
     document.querySelector('#search-results-heading').innerHTML = `
             <h2>${results.length} of ${global.search.totalResults} Results for ${global.search.term}</h2>
@@ -345,14 +223,7 @@ async function displaySlider() {
     const div = document.createElement('div');
     div.classList.add('swiper-slide');
 
-    div.innerHTML = `
-      <a href="movie-details.html?id=${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
-        ${movie.title}
-      </a>
-      <h4 class="swiper-rating">
-        <i class="fas fa-star text-secondary"></i> ${movie.vote_average.toFixed(1)} / 10
-      </h4>`;
+    div.innerHTML = displaySliderMovies(movie.id, movie.poster_path, movie.title, movie.vote_average);
     
     document.querySelector('.swiper-wrapper').appendChild(div);
 
@@ -383,15 +254,6 @@ function initSwiper() {
   })
 }
 }
-  // <a href="movie-details.html?id=1">
-  //   <img src="./images/no-image.jpg"
-  //   alt="Movie Title" />
-  // </a>
-  // <h4 class="swiper-rating">
-  //   <i class="fas fa-star text-secondary"></i> 8 / 10
-  // </h4>
-  
-  // Make request to search
 
   async function searchAPIData() {
     
