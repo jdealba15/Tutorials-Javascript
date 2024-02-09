@@ -14,17 +14,27 @@ const global = {
       totalPages: 1,
       totalResults: 0
     },
-    api: {
-      apiKey: '93ece334a07853393c9f947e3fa73e05',
-      apiURL: 'https://api.themoviedb.org/3/'
-    }
   };
 
+const generateBaseUrl = () => {
+    return 'https://flixx-api-4ea54960865d.herokuapp.com/'
+}
+
+const fetchFromTMBD = async (endpoint) => {
+  showSpinner(); 
+  const baseUrl = generateBaseUrl();
+  const url = `${baseUrl}resource/${endpoint}`;
+  const resp = await fetch(url)
+  const data = await resp.json();
+  hideSpinner();
+  return data;
+
+};
 
 
   // Display 20 most popular movies
 async function displayPopularMovies() {
-  const { results } = await fetchAPIData('movie/popular');
+  const { results } = await fetchFromTMBD('movie/popular');
 
   results.forEach((movie) => {
     const div = document.createElement('div');
@@ -36,7 +46,7 @@ async function displayPopularMovies() {
   
   // Display 20 most popular tv shows
   async function displayPopularShows() {
-    const { results } = await fetchAPIData('tv/popular');
+    const { results } = await fetchFromTMBD('tv/popular');
   
     results.forEach((show) => {
       const div = document.createElement('div');
@@ -51,7 +61,7 @@ async function displayPopularMovies() {
   async function displayMovieDetails() {
     const movieId = window.location.search.split('=')[1];
   
-    const movie = await fetchAPIData(`movie/${movieId}`);
+    const movie = await fetchFromTMBD(`movie/${movieId}`);
   
     // Overlay for background image
     displayBackgroundImage('movie', movie.backdrop_path);
@@ -78,7 +88,7 @@ async function displayPopularMovies() {
   async function displayShowDetails() {
     const showId = window.location.search.split('=')[1];
   
-    const show = await fetchAPIData(`tv/${showId}`);
+    const show = await fetchFromTMBD(`tv/${showId}`);
   
     // Overlay for background image
     displayBackgroundImage('tv', show.backdrop_path);
@@ -217,7 +227,7 @@ function displayPagination() {
 
 // Display Slider Movies
 async function displaySlider() {
-  const { results } = await fetchAPIData('movie/now_playing');
+  const { results } = await fetchFromTMBD('movie/now_playing');
 
   results.forEach((movie) => {
     const div = document.createElement('div');
@@ -264,25 +274,6 @@ function initSwiper() {
   
     const response = await fetch(
       `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}&page=${global.search.page}`
-    );
-  
-    const data = await response.json();
-  
-    hideSpinner();
-  
-    return data;
-  }
-  // Fetch data from TMDB API
-  async function fetchAPIData(endpoint) {
-    // Register your key at https://www.themoviedb.org/settings/api and enter here
-    // Only use this for development or very small projects. You should store your key and make requests from a server
-    const API_KEY = global.api.apiKey;
-    const API_URL = global.api.apiURL;
-  
-    showSpinner();
-  
-    const response = await fetch(
-      `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US&query=${global.search.term}&page=${global.search.page}`
     );
   
     const data = await response.json();
