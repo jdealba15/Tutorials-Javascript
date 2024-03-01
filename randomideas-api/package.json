@@ -1,0 +1,14 @@
+{
+  "name": "randomideas-api",
+  "version": "1.0.0",
+  "description": "Idea sharing app",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "author": "Jonathan De Alba",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
