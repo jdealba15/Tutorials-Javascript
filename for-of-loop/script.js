@@ -17,6 +17,7 @@ for(const letter of str) {
 const method = new Map();
 method.set('name', 'John');
 method.set('age', 30);
+
 console.log(method);
 for (const [key, value] of method) {
     console.log(key, value);
