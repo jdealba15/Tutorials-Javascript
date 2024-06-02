@@ -4,4 +4,8 @@ const sum = numbers.reduce(function (accumulator, currentValue) {
     return accumulator + currentValue;
 }, 0);
 
+const sum2 = numbers.reduce ((acc, curr) => acc + curr);
+
+const sum3 = () => 
+
 console.log(sum);
