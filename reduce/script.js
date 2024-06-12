@@ -6,6 +6,12 @@ const sum = numbers.reduce(function (accumulator, currentValue) {
 
 const sum2 = numbers.reduce ((acc, curr) => acc + curr);
 
-const sum3 = () => 
+const sum3 = () => {
+    let acc = 0;
+    for (const cur of numbers) {
+        acc += cur;
+    }
+    return acc;
+};
 
-console.log(sum);
+console.log(sum3());
